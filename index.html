@@ -1,0 +1,25 @@
+<html>
+<head>
+  <title>A general pizza renderer.</title>
+  <link rel="stylesheet" href="app.css"></link>
+  <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+</head>
+<body>
+
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1024" height="960">
+<!--   <defs>
+    <pattern id="pizza-toppings" x="0" y="0" patternUnits="userSpaceOnUse" height="192" width="192"">
+      <image x="0" y="0" xlink:href="http://wdfw.wa.gov/fishing/salmon/chum/graphics/eggs.gif" width="128" height="128"></image>
+    </pattern>
+  </defs> -->
+
+  <image x="0" y="0" xlink:href="static/pizza.png" width="1024" height="960" />
+  <!-- <ellipse id="pizza-zone" rx="512" ry="480" cx="512" cy="480" fill="url(#pizza-toppings)" /> -->
+  <g id="toppings">
+  </g>
+</svg>
+
+<script src="index.js"></script>
+
+</body>
+</html>

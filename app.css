@@ -1,0 +1,177 @@
+body {
+  font-family: "helvetica neue";
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin: 0;
+  /*background: url('static/pizza.png') no-repeat center #111;*/
+}
+
+#pizza-zone {
+  /*background-size: 10% 10%;*/
+  /*background-image: url('http://wdfw.wa.gov/fishing/salmon/chum/graphics/eggs.gif');*/
+  /*border: 10px solid green;*/
+}
+
+#pizza-toppings {
+  overflow: visible;
+}
+
+.flipped {
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+#thing {
+  max-width: 512px;
+  z-index: 20;
+}
+
+#link {
+  margin-left: 32px;
+  z-index: 10;
+}
+
+.background-white {
+  background-color: white;
+}
+
+.background-black {
+  background-color: black;
+}
+
+.background-overworld {
+  background-color: #fedbab;
+}
+
+.hide {
+  display: none;
+}
+
+#left-fire {
+  position: absolute;
+  left: 20px;
+  bottom: 5px;
+}
+
+#right-fire {
+  position: absolute;
+  right: 20px;
+  bottom: 5px;
+}
+
+#grave {
+  position: absolute;
+  left: 20%;
+  bottom: 5px;
+}
+
+#green-tree-1 {
+  position: absolute;
+  bottom: 69px;
+  left: 5px;
+}
+
+#green-tree-2 {
+  position: absolute;
+  bottom: 5px;
+  left: 69px;
+}
+
+#green-tree-3 {
+  position: absolute;
+  bottom: 69px;
+  right: 5px;
+}
+
+#autumn-tree-1 {
+  position: absolute;
+  bottom: 69px;
+  left: 5px;
+}
+
+#autumn-tree-2 {
+  position: absolute;
+  bottom: 5px;
+  right: 37px;
+}
+
+#autumn-tree-3 {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+}
+
+#grave-tree {
+  position: absolute;
+  bottom: 69px;
+  left: 5px;
+}
+
+#woods-grave {
+  position: absolute;
+  right: 15%;
+  bottom: 5px;
+}
+
+#grumble-grumble {
+  position: absolute;
+  left: 64px;
+  bottom: 5px;
+  z-index: 2;
+}
+
+#grumble-fire {
+  position: absolute;
+  right: 64px;
+  bottom: 5px;
+}
+
+#old-man {
+  position: absolute;
+  left: 96px;
+  bottom: 5px;
+  z-index: 2;
+}
+
+#old-woman {
+  position: absolute;
+  right: 96px;
+  bottom: 5px;
+  z-index: 2;
+}
+
+#old-woman-fire {
+  position: absolute;
+  left: 64px;
+  bottom: 5px;
+}
+
+#buy-somethin {
+  position: absolute;
+  right: 96px;
+  bottom: 5px;
+  z-index: 2;
+}
+
+#fairy {
+  position: absolute;
+  bottom: 40%;
+  left: 25%;
+  z-index: 2;
+}

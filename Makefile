@@ -11,7 +11,7 @@ run: css
 build: css
 	$(BROWSERIFY) app.js | $(UGLIFY) -c -m -o index.js
 
-pushall:
+pushall: build
 	git push origin gh-pages
 
 # You need to `npm install -g myth`.

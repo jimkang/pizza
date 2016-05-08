@@ -67,13 +67,10 @@ function renderToppings(imgurl, desc) {
     .attr('y', top)
     .attr('width', diameter)
     .attr('height', diameter)
+    .attr('transform', rotateAroundCenter)
     .classed('topping', true);
 
   entered.append('desc').text(accessor('desc'));
-
-  if (probable.roll(8) === 0) {
-    // thingImg.classList.add('flipped');
-  }
 
   function left(d) {
     return d.x - width/2;
@@ -85,6 +82,10 @@ function renderToppings(imgurl, desc) {
 
   function diameter(d) {
     return d.r * 2;
+  }
+
+  function rotateAroundCenter(d) {
+    return 'rotate(' + d.rotation + ' ' + d.x + ' ' + d.y + ')'
   }
 }
 
@@ -101,7 +102,8 @@ function generateToppingData(imagePacks, baseRadius) {
       id: 'topping-' + i,
       r: baseRadius/2 + probable.roll(baseRadius),
       imgurl: imagePack.imgurl,
-      desc: imagePack.desc
+      desc: imagePack.desc,
+      rotation: probable.roll(360)
     });
   }
   return toppingData;
@@ -122,8 +124,7 @@ function getTransformToFitToppings(opts) {
    var neededRadius = smallestDimension/2;
    var toppingCircleSize = packEnclose(toppingData);
    var scaleFactor = neededRadius / toppingCircleSize.r;
-   // I don't know why it's 11/24 instead of 1/2.
-   var midPoint = 11/24;
+   var midPoint = 0.5;
    var transform = 'translate(' + width * midPoint + ', ' + height * midPoint + ')';
    transform += ' scale(' + scaleFactor + ')';
    return transform;

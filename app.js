@@ -9,7 +9,7 @@ var accessor = require('accessor');
 // var linkMarginLeft = 32;
 
 var routes = {
-  '/topping/:imgurl/desc/:desc': renderToppings,
+  '/topping/:imgurl/desc/:desc': renderToppings
   // '/thing/:imgurl/desc/:desc/width/:width/height/:height': renderImageRespectingSize,
 };
 
@@ -19,10 +19,10 @@ var bgStyleTable = probable.createTableFromDef({
   '90-99': 'background-overworld'
 });
 
-(((((((function go() {
+(function go() {
   var router = director.Router(routes);
   router.init();
-})()))))));
+})();
 
 // function renderImageRespectingSize(imgurl, desc, thingWidth, thingHeight) {
 //   renderImage(imgurl, desc, false, thingWidth, thingHeight);
@@ -41,8 +41,8 @@ function renderToppings(imgurl, desc) {
   var toppingData = generateToppingData(
     [
       {
-      imgurl: imgurl,
-      desc: desc
+        imgurl: imgurl,
+        desc: desc
       }
     ],
     100
@@ -59,9 +59,13 @@ function renderToppings(imgurl, desc) {
   });
   toppingsContainer.attr('transform', containerTransform);
 
-  var toppings = toppingsContainer.selectAll('.topping').data(toppingData, accessor());
+  var toppings = toppingsContainer
+    .selectAll('.topping')
+    .data(toppingData, accessor());
 
-  var entered = toppings.enter().append('image')
+  var entered = toppings
+    .enter()
+    .append('image')
     .attr('xlink:href', imgSrc)
     .attr('x', left)
     .attr('y', top)
@@ -73,11 +77,11 @@ function renderToppings(imgurl, desc) {
   entered.append('desc').text(accessor('desc'));
 
   function left(d) {
-    return d.x - width/2;
+    return d.x - width / 2;
   }
 
   function top(d) {
-    return d.y - height/2;
+    return d.y - height / 2;
   }
 
   function diameter(d) {
@@ -85,7 +89,7 @@ function renderToppings(imgurl, desc) {
   }
 
   function rotateAroundCenter(d) {
-    return 'rotate(' + d.rotation + ' ' + d.x + ' ' + d.y + ')'
+    return 'rotate(' + d.rotation + ' ' + d.x + ' ' + d.y + ')';
   }
 }
 
@@ -100,7 +104,7 @@ function generateToppingData(imagePacks, baseRadius) {
     var imagePack = probable.pickFromArray(imagePacks);
     toppingData.push({
       id: 'topping-' + i,
-      r: baseRadius/2 + probable.roll(baseRadius),
+      r: baseRadius / 2 + probable.roll(baseRadius),
       imgurl: imagePack.imgurl,
       desc: imagePack.desc,
       rotation: probable.roll(360)
@@ -110,24 +114,25 @@ function generateToppingData(imagePacks, baseRadius) {
 }
 
 function getTransformToFitToppings(opts) {
-    var toppingData;
-    var width;
-    var height;
+  var toppingData;
+  var width;
+  var height;
 
-    if (opts) {
-      toppingData = opts.toppingData;
-      width = opts.fitTo.width;
-      height = opts.fitTo.height;
-   }
+  if (opts) {
+    toppingData = opts.toppingData;
+    width = opts.fitTo.width;
+    height = opts.fitTo.height;
+  }
 
-   var smallestDimension = width < height ? width : height;
-   var neededRadius = smallestDimension/2;
-   var toppingCircleSize = packEnclose(toppingData);
-   var scaleFactor = neededRadius / toppingCircleSize.r;
-   var midPoint = 0.5;
-   var transform = 'translate(' + width * midPoint + ', ' + height * midPoint + ')';
-   transform += ' scale(' + scaleFactor + ')';
-   return transform;
+  var smallestDimension = width < height ? width : height;
+  var neededRadius = smallestDimension / 2;
+  var toppingCircleSize = packEnclose(toppingData);
+  var scaleFactor = neededRadius / toppingCircleSize.r;
+  var midPoint = 0.5;
+  var transform =
+    'translate(' + width * midPoint + ', ' + height * midPoint + ')';
+  transform += ' scale(' + scaleFactor + ')';
+  return transform;
 }
 
 function setBackgroundStyle() {

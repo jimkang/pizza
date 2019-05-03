@@ -1,4 +1,7 @@
-BROWSERIFY = browserify
+include config.mk
+
+HOMEDIR = $(shell pwd)
+BROWSERIFY = node_modules/.bin/browserify
 UGLIFY = node_modules/.bin/uglifyjs
 
 test:
@@ -8,12 +11,16 @@ run:
 	wzrd app.js:index.js -- \
 		-d
 
-build: css
+build:
 	$(BROWSERIFY) app.js | $(UGLIFY) -c -m -o index.js
 
 pushall:	
-	git push origin gh-pages
+	git push origin master
 
-# You need to `npm install -g myth`.
-css:
-	myth app-src.css app.css
+prettier:
+	prettier --single-quote --write "**/*.js"
+
+sync:
+	rsync -a $(HOMEDIR)/ $(USER)@$(SERVER):/$(APPDIR) --exclude node_modules/ \
+		--omit-dir-times --no-perms
+

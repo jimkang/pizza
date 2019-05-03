@@ -13,9 +13,12 @@
     </pattern>
   </defs> -->
 
-  <image x="0" y="0" xlink:href="static/pizza.png" width="1024" height="960" />
-  <!-- <ellipse id="pizza-zone" rx="512" ry="480" cx="512" cy="480" fill="url(#pizza-toppings)" /> -->
-  <g id="toppings">
+  <g width="1024" height="960" id="pizza-root">
+    <animateTransform attributeName="transform" attributeType="XML" type="rotate" repeatCount="indefinite" from="0 512 480" to="360 512 480" dur="9.2s"></animateTransform>
+    <image x="0" y="0" xlink:href="static/pizza.png" width="1024" height="960" >
+    </image>
+    <g id="toppings"></g>
+  </g>
   </g>
 </svg>
 

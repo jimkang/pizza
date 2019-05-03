@@ -1,17 +1,12 @@
-var director = require('director');
 var probable = require('probable');
 var d3 = require('d3-selection');
 var d3hierarchy = require('d3-hierarchy');
 var packSiblings = d3hierarchy.packSiblings;
 var packEnclose = d3hierarchy.packEnclose;
 var accessor = require('accessor');
+var RouteState = require('route-state');
 
 // var linkMarginLeft = 32;
-
-var routes = {
-  '/topping/:imgurl/desc/:desc': renderToppings
-  // '/thing/:imgurl/desc/:desc/width/:width/height/:height': renderImageRespectingSize,
-};
 
 var bgStyleTable = probable.createTableFromDef({
   '0-59': 'background-white',
@@ -19,39 +14,36 @@ var bgStyleTable = probable.createTableFromDef({
   '90-99': 'background-overworld'
 });
 
+var routeState = RouteState({
+  followRoute,
+  windowObject: window
+});
+
 (function go() {
-  var router = director.Router(routes);
-  router.init();
+  routeState.routeFromHash();
 })();
 
 // function renderImageRespectingSize(imgurl, desc, thingWidth, thingHeight) {
 //   renderImage(imgurl, desc, false, thingWidth, thingHeight);
 // }
 
+function followRoute({ toppingURL, desc }) {
+  renderToppings(toppingURL, desc);
+}
+
 function renderToppings(imgurl, desc) {
   setBackgroundStyle();
 
   var toppingsContainer = d3.select('#toppings');
-  var imgSrc = decodeURIComponent(imgurl);
-  var alt = decodeURIComponent(desc);
 
   var width = 125;
   var height = 125;
 
-  var toppingData = generateToppingData(
-    [
-      {
-        imgurl: imgurl,
-        desc: desc
-      }
-    ],
-    100
-  );
-
+  var toppingData = generateToppingData({ imgurl, desc }, 100);
   packSiblings(toppingData);
 
   var containerTransform = getTransformToFitToppings({
-    toppingData: toppingData,
+    toppingData,
     fitTo: {
       width: 1024,
       height: 960
@@ -66,7 +58,7 @@ function renderToppings(imgurl, desc) {
   var entered = toppings
     .enter()
     .append('image')
-    .attr('xlink:href', imgSrc)
+    .attr('xlink:href', imgurl)
     .attr('x', left)
     .attr('y', top)
     .attr('width', diameter)
@@ -74,7 +66,7 @@ function renderToppings(imgurl, desc) {
     .attr('transform', rotateAroundCenter)
     .classed('topping', true);
 
-  entered.append('desc').text(accessor('desc'));
+  entered.append('desc').text(desc);
 
   function left(d) {
     return d.x - width / 2;
@@ -93,7 +85,7 @@ function renderToppings(imgurl, desc) {
   }
 }
 
-function generateToppingData(imagePacks, baseRadius) {
+function generateToppingData(imagePack, baseRadius) {
   var toppingData = [];
   var numberOfToppings = 5 + probable.rollDie(6);
   if (probable.roll(4) === 0) {
@@ -101,7 +93,6 @@ function generateToppingData(imagePacks, baseRadius) {
   }
 
   for (var i = 0; i < numberOfToppings; ++i) {
-    var imagePack = probable.pickFromArray(imagePacks);
     toppingData.push({
       id: 'topping-' + i,
       r: baseRadius / 2 + probable.roll(baseRadius),

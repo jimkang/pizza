@@ -3,13 +3,13 @@ pizza
 
 A general pizza renderer.
 
+[Example!](https://jimkang.com#toppingURL=https://media.giphy.com/media/xUA7b4o1aY3jEakPNm/giphy.gif&desc=Bowie)
+
 Installation
 ------------
 
     npm install
     npm install wzrd -g
-
-Example URL: http://localhost:9967/#topping/https%3A%2F%2Fmedia.giphy.com%2Fmedia%2FxUA7b4o1aY3jEakPNm%2Fgiphy.gif/desc/squid
 
 Usage
 -----

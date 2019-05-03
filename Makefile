@@ -14,7 +14,7 @@ run:
 build:
 	$(BROWSERIFY) app.js | $(UGLIFY) -c -m -o index.js
 
-pushall:	
+pushall: sync
 	git push origin master
 
 prettier:
